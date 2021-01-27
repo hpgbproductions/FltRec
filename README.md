@@ -26,6 +26,14 @@ This will help you to familiarize yourself with FLTREC.
 
 ####Commands Reference
 
+Notice about Data Sets:
+This program splits the list of recorded information into four categories:
+- M (Movement): Position and rotation.
+- S (Standard): Basic control axes, Throttle, and Brake.
+- E (Extra): Trim and VTOL sliders, and landing gear.
+- A (Advanced): Weapons and activation groups.
+Recording settings will determine which data sets are recorded. During playback, this information is checked. A recorded data set will be locked from player input during playback.
+
 [Actions] `FltRec_ClearSet (char set)`
 Delete a data set from the currently loaded data.
 `set`: Character corresponding to the data set. May be M, S, E, or A.
@@ -52,3 +60,24 @@ Manually stop the current recording or playback.
 
 [Actions] `FltRec_TogglePreview (void)`
 Toggle visibility of the preview. The preview must be generated first. Note that leaving the sandbox will automatically hide the preview.
+
+[Recording Settings] `FltRSet_RecordControls (bool m, bool s, bool e, bool a)`
+Choose whether certain data sets are recorded.
+`m`: Movement.
+`s`: Standard.
+`e`: Extra.
+`a`: Advanced.
+
+[Recording Settings] `FltRSet_RecordQuality (int size, int interval)`
+Recording quality.
+`size`: Maximum number of data points that can be recorded before the recording is automatically stopped.
+`interval`: Number of FixedUpdate frames between each recorded data point.
+
+[Playback Settings] `FltRSet_PlayDebug (bool active)`
+Show or hide the debug message during data playback. Useful for testing FLTSCR output data.
+`active`: Debug message visibility. Default false.
+
+[Playback Settings] `FltRSet_PlaySpace (bool pos, bool rot)`
+Set the space options for playback. If true, a start position and rotation in recording data is used. If false, the current position and rotation of the aircraft is used.
+`pos`: Position relativity. Default true.
+`rot`: Rotation relativity. Default true.
