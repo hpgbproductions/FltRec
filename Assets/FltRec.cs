@@ -76,6 +76,7 @@ public class FltRec : MonoBehaviour
     // Player settings
     bool PositionRelative = false;    // Start at current position (true) or saved start position (false)
     bool RotationRelative = false;
+    bool PlayerDebug = false;
 
     // Line settings
     float ColorR = 0f;
@@ -104,6 +105,7 @@ public class FltRec : MonoBehaviour
         ServiceProvider.Instance.DevConsole.RegisterCommand<int, int>("FltRSet_RecordQuality", FltRSet_RecordQuality);
         ServiceProvider.Instance.DevConsole.RegisterCommand<bool, bool, bool, bool>("FltRSet_RecordControls", FltRSet_RecordControls);
         ServiceProvider.Instance.DevConsole.RegisterCommand<bool, bool>("FltRSet_PlaySpace", FltRSet_PlaySpace);
+        ServiceProvider.Instance.DevConsole.RegisterCommand<bool>("FltRSet_PlayDebug", FltRSet_PlayDebug);
         ServiceProvider.Instance.DevConsole.RegisterCommand<float, float, float, float>("FltRSet_PreviewColor", FltRSet_PreviewColor);
         ServiceProvider.Instance.DevConsole.RegisterCommand<float, float, int>("FltRSet_PreviewQuality", FltRSet_PreviewQuality);
 
@@ -135,6 +137,7 @@ public class FltRec : MonoBehaviour
 
                 PositionRelative = reader.ReadBoolean();
                 RotationRelative = reader.ReadBoolean();
+                PlayerDebug = reader.ReadBoolean();
 
                 ColorR = reader.ReadSingle();
                 ColorG = reader.ReadSingle();
@@ -261,8 +264,13 @@ public class FltRec : MonoBehaviour
             float dpf = SeekDataPoint(TimeSinceStart, PlaybackTime, DataPointCache);
             DataPointCache = Mathf.FloorToInt(dpf);
 
+            if (PlayerDebug)
+            {
+                ServiceProvider.Instance.GameWorld.ShowStatusMessage(string.Format("Playing: {0:F1} ({1:F1}/{2})", PlaybackTime, dpf, DataPoints - 1));
+            }
+
             // End of data stream
-            if (DataPointCache >= DataPoints - 1)
+            if (DataPointCache >= DataPoints - 2)
             {
                 FltRec_Stop();
             }
@@ -299,7 +307,7 @@ public class FltRec : MonoBehaviour
                 ServiceProvider.Instance.PlayerAircraft.Controls.LaunchCountermeasures = PlaneCountermeasures[DataPointCache];
                 for (int i = 0; i < 8; i++)
                 {
-                    if (PlaneAgs[DataPointCache, i] != PreviousPlaneAgs[i])
+                    if (PlaneAgs[DataPointCache, i] != ServiceProvider.Instance.PlayerAircraft.Controls.GetActivationGroupState(i + 1))
                     {
                         ServiceProvider.Instance.PlayerAircraft.Controls.ToggleActivationGroup(i + 1);
                         PreviousPlaneAgs[i] = !PreviousPlaneAgs[i];
@@ -701,6 +709,11 @@ public class FltRec : MonoBehaviour
         Debug.Log("Playback space settings applied");
     }
 
+    private void FltRSet_PlayDebug(bool active)
+    {
+        PlayerDebug = active;
+    }
+
     private void FltRSet_PreviewColor(float r, float g, float b, float a)
     {
         ColorR = r;
@@ -849,6 +862,7 @@ public class FltRec : MonoBehaviour
 
             writer.Write(PositionRelative);
             writer.Write(RotationRelative);
+            writer.Write(PlayerDebug);
 
             writer.Write(ColorR);
             writer.Write(ColorG);

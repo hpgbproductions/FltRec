@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ModManifest buildID="70f77540-9109-47bf-a85e-e46c879d96f1">
-  <Mod name="Flight Recorder" author="hpgbproductions" versionMajor="1" versionMinor="0" loadPriority="1000" lastUpdated="2021-01-27T03:53:14.4435367Z" apiVersion="1.0.0.0" description="Save and load aircraft movement and controls.">
+<ModManifest buildID="f5e75555-d264-4ab2-a292-fabac7352ec5">
+  <Mod name="Flight Recorder" author="hpgbproductions" versionMajor="1" versionMinor="0" loadPriority="1000" lastUpdated="2021-01-27T08:07:44.851984Z" apiVersion="1.0.0.0" description="Save and load aircraft movement and controls.">
     <Steam title="" visibility="Public" previewPath="" language="English" tags="">
       <description></description>
     </Steam>
