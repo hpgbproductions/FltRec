@@ -1,0 +1,13 @@
+C:\Users\nacchan\source\repos\FltScr\bin\Debug\netcoreapp3.1\FltScr.exe
+C:\Users\nacchan\source\repos\FltScr\bin\Debug\netcoreapp3.1\FltScr.deps.json
+C:\Users\nacchan\source\repos\FltScr\bin\Debug\netcoreapp3.1\FltScr.runtimeconfig.json
+C:\Users\nacchan\source\repos\FltScr\bin\Debug\netcoreapp3.1\FltScr.runtimeconfig.dev.json
+C:\Users\nacchan\source\repos\FltScr\bin\Debug\netcoreapp3.1\FltScr.dll
+C:\Users\nacchan\source\repos\FltScr\bin\Debug\netcoreapp3.1\FltScr.pdb
+C:\Users\nacchan\source\repos\FltScr\obj\Debug\netcoreapp3.1\FltScr.csprojAssemblyReference.cache
+C:\Users\nacchan\source\repos\FltScr\obj\Debug\netcoreapp3.1\FltScr.csproj.CoreCompileInputs.cache
+C:\Users\nacchan\source\repos\FltScr\obj\Debug\netcoreapp3.1\FltScr.AssemblyInfoInputs.cache
+C:\Users\nacchan\source\repos\FltScr\obj\Debug\netcoreapp3.1\FltScr.AssemblyInfo.cs
+C:\Users\nacchan\source\repos\FltScr\obj\Debug\netcoreapp3.1\FltScr.dll
+C:\Users\nacchan\source\repos\FltScr\obj\Debug\netcoreapp3.1\FltScr.pdb
+C:\Users\nacchan\source\repos\FltScr\obj\Debug\netcoreapp3.1\FltScr.genruntimeconfig.cache
