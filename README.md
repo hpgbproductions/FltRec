@@ -63,15 +63,15 @@ Toggle visibility of the preview. The preview must be generated first. Note that
 
 [Recording Settings] `FltRSet_RecordControls (bool m, bool s, bool e, bool a)`
 Choose whether certain data sets are recorded.
-`m`: Movement.
-`s`: Standard.
-`e`: Extra.
-`a`: Advanced.
+`m`: Movement. Default true.
+`s`: Standard. Default true.
+`e`: Extra. Default false.
+`a`: Advanced. Default false.
 
 [Recording Settings] `FltRSet_RecordQuality (int size, int interval)`
 Recording quality.
-`size`: Maximum number of data points that can be recorded before the recording is automatically stopped.
-`interval`: Number of FixedUpdate frames between each recorded data point.
+`size`: Maximum number of data points that can be recorded before the recording is automatically stopped. Default 3000.
+`interval`: Number of FixedUpdate frames between each recorded data point. Default 10.
 
 [Playback Settings] `FltRSet_PlayDebug (bool active)`
 Show or hide the debug message during data playback. Useful for testing FLTSCR output data.
@@ -81,3 +81,15 @@ Show or hide the debug message during data playback. Useful for testing FLTSCR o
 Set the space options for playback. If true, a start position and rotation in recording data is used. If false, the current position and rotation of the aircraft is used.
 `pos`: Position relativity. Default true.
 `rot`: Rotation relativity. Default true.
+
+[Previewer Settings] `FltRSet_PreviewColor (float r, float g, float b, float a)`
+Color of the preview line.
+`r`: Red. Default 0.
+`g`: Green. Default 1.
+`b`: Blue. Default 0.
+`a`: Alpha (opacity). Default 0.5f.
+
+[Previewer Settings] `FltRSet_PreviewQuality (float width, float interval, int cvert)`
+`width`: Line thickness. Default 0.5f.
+`interval`: Recording's simulation time between each point of the preview. Default 0.1f.
+`cvert`: Amount of rounding applied to corners. Default 0.
