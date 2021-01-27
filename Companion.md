@@ -22,7 +22,7 @@ FLTREC Playback System:
 - This index is used to calculate inputs at any given time.
 - Floating-point and Vector3 values are linearly interpolated (lerped) if the floating-point index falls between two integers.
 - Boolean values take the previous data point.
-- Note: The first data point corresponds to the starting values.
+- Note: The first data point (index 0) corresponds to the starting values.
 - Tip: To increase a value instantaneously, write them with zero or very small delays.
 
 ## Enumerations
