@@ -9,8 +9,42 @@
 5. Build using Ctrl+B or the green arrow at the top. This will generate a FLTREC `EXAMPLE.FRC` file on your desktop.
 6. Copy the file to your FLTREC recordings folder at `\NACHSAVE\FLTREC\`.
 
+## Implementation
+
+It is important to know how FLTREC recordings are stored and interpreted, in order to program them.
+
+FLTREC .FRC File Structure:
+- Header: An identification string (currently serves no purpose). Number of data points. Whether each data set (M, S, E, A) is present.
+- Data Point: Corresponding time since start, followed by movement and input information according to which data sets are enabled.
+
+FLTREC Playback System:
+- When playback is started, the start time (UnityEngine.Time.timeSinceLevelLoad) is recorded. The time is checked against the start time every FixedUpdate to get a relative time, which is then used to find the corresponding theorhetical floating-point index of the time array.
+- This index is used to calculate inputs at any given time.
+- Floating-point and Vector3 values are linearly interpolated (lerped) if the floating-point index falls between two integers.
+- Boolean values take the previous data point.
+
 ## Enumerations
+
+`Vector3Controls { Position, Rotation }`
+- A list of controls that use the Vector3 type, simulated by `float[3]` in this program.
+
+`FloatControls { Pitch, Roll, Yaw, Throttle, Brake, Trim, VTOL }`
+- A list of controls that use the floating-point type.
+
+`BoolControls { GearDown, Guns, Weapons, Countermeasures }`
+- A list of controls that use the Boolean type.
 
 `Vector3 { x, y, z }`
 - Unused.
 
+`ControlTypes { Vector3, Floating, Boolean }`
+- Unused.
+
+## Method Groups
+
+`void SelectDataSets(bool m = false, bool s = true, bool e = true, bool a = true)`
+- Choose which data sets will be exported.
+- `m`: Export the Movement set.
+- `s`: Export the Standard set.
+- `e`: Export the Extra set.
+- `a`: Export the Advanced set.
