@@ -23,7 +23,7 @@ FLTREC Playback System:
 - Floating-point and Vector3 values are linearly interpolated (lerped) if the floating-point index falls between two integers.
 - Boolean values take the previous data point.
 - Note: The first data point corresponds to the starting values.
-- Tip: To increase a value instantaneously, make use of empty frames with a zero or very small delay.
+- Tip: To increase a value instantaneously, write them with zero or very small delays.
 
 ## Enumerations
 
