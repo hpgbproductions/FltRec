@@ -34,12 +34,6 @@ FLTREC Playback System:
 `BoolControls { GearDown, Guns, Weapons, Countermeasures }`
 - A list of controls that use the Boolean type.
 
-`Vector3 { x, y, z }`
-- Unused.
-
-`ControlTypes { Vector3, Floating, Boolean }`
-- Unused.
-
 ## Method Groups
 
 `void SelectDataSets(bool m = false, bool s = true, bool e = true, bool a = true)`
