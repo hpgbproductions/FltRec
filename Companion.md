@@ -22,6 +22,7 @@ FLTREC Playback System:
 - This index is used to calculate inputs at any given time.
 - Floating-point and Vector3 values are linearly interpolated (lerped) if the floating-point index falls between two integers.
 - Boolean values take the previous data point.
+- Note: The first data point corresponds to the starting values.
 
 ## Enumerations
 
@@ -37,8 +38,31 @@ FLTREC Playback System:
 ## Method Groups
 
 `void SelectDataSets(bool m = false, bool s = true, bool e = true, bool a = true)`
-- Choose which data sets will be exported.
+- Choose which data sets will be exported. It must be called before the save function.
 - `m`: Export the Movement set.
 - `s`: Export the Standard set.
 - `e`: Export the Extra set.
 - `a`: Export the Advanced set.
+
+`void SetBufferSize(int size)`
+- Initializes the arrays, setting a maximum value of frames allowed by the program.
+- `size`: Number of frames. It should be equal to the number of NextFrame calls.
+
+`void WriteValue(Vector3Controls control, float x, float y, float z)`
+`void WriteValue(FloatControls control, float value)`
+`void WriteValue(BoolControls control, bool value)`
+- Set the selected information at the current frame.
+- `control`: Name of the information.
+
+`void WriteActivationGroup(int ag, bool value)`
+- Set an activation group value at the current frame.
+- `ag`: Activation group number.
+- `value`: Activation state.
+
+`void NextFrame(float delay = 1f)`
+- Write the values defined before it to a data point, and advances to the next.
+- `delay`: Time to the next data point.
+
+`void Save(string filename)`
+- Export the script into a file readable by the Flight Recorder mod.
+- `filename`: File name.
