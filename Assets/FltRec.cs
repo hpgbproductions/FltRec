@@ -28,7 +28,7 @@ public class FltRec : MonoBehaviour
     bool[] PreviousPlaneAgs;    // PlaneAgs of the previous action frame
 
     // Storage for recording and playback
-    int DataPoints;              // Array length of loaded information
+    int DataPoints = 0;          // Array length of loaded information
     float[] TimeSinceStart;
     Vector3[] PlanePositions;
     Vector3[] PlaneRotations;
@@ -347,10 +347,17 @@ public class FltRec : MonoBehaviour
         if (!ServiceProvider.Instance.GameState.IsInLevel || ServiceProvider.Instance.GameState.IsInDesigner)
         {
             Debug.LogError("Can only play recordings in map");
+            return;
+        }
+        else if (DataPoints == 0)
+        {
+            Debug.LogError("No data is loaded");
+            return;
         }
         else if (FRMode == FRModes.Record)
         {
             Debug.LogError("Cannot start playback when recording (stop recording first)");
+            return;
         }
 
         // Set up playback system
