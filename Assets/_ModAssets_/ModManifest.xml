@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ModManifest buildID="70f77540-9109-47bf-a85e-e46c879d96f1">
+  <Mod name="Flight Recorder" author="hpgbproductions" versionMajor="1" versionMinor="0" loadPriority="1000" lastUpdated="2021-01-27T03:53:14.4435367Z" apiVersion="1.0.0.0" description="Save and load aircraft movement and controls.">
+    <Steam title="" visibility="Public" previewPath="" language="English" tags="">
+      <description></description>
+    </Steam>
+    <GameObjects>
+      <GameObject name="FltRec" path="Assets/_ModAssets_/FltRec.prefab" />
+    </GameObjects>
+    <Assets />
+    <MaterialShaderMap />
+    <Assemblies>
+      <Assembly name="FlightRecorder-Assembly-CSharp.dll" path="Assets/_ModAssets_/FlightRecorder-Assembly-CSharp.dll.bytes" isProjectAssembly="true" />
+    </Assemblies>
+    <Sections>
+      <SimplePlanesMod apiVersion="1.0.0.0">
+        <Maps />
+        <Levels />
+        <Parts />
+        <DesignerPlugins />
+        <MapPlugins />
+        <PersistentObjects>
+          <PersistentObject objectName="FltRec" />
+        </PersistentObjects>
+      </SimplePlanesMod>
+    </Sections>
+  </Mod>
+</ModManifest>
