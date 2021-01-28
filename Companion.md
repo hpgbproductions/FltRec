@@ -47,6 +47,8 @@ Beginner's guide below main reference.
 - Export the script into a file readable by the Flight Recorder mod.
 - `filename`: File name.
 
+# FLTSCR Guide
+
 ## Preparation
 
 1. Download and install [Microsoft Visual Studio 2019](https://visualstudio.microsoft.com/downloads/).
