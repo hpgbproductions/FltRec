@@ -1,29 +1,8 @@
 # FLTSCR Reference
 
-## Preparation
+Information related to use of the Flight Scripter companion program.
 
-1. Download and install [Microsoft Visual Studio 2019](https://visualstudio.microsoft.com/downloads/).
-2. Download and unzip [FltScr.zip](https://github.com/hpgbproductions/FltRec/blob/main/FltScr.zip)
-3. Open `FltScr.sln`.
-4. Open `NewRecording.cs`. You will only ever need to modify `NewRecordingData()`. Currently, an example script is included there.
-5. Build using Ctrl+B or the green arrow at the top. This will generate a FLTREC `EXAMPLE.FRC` file on your desktop.
-6. Copy the file to your FLTREC recordings folder at `\NACHSAVE\FLTREC\`.
-
-## Implementation
-
-It is important to know how FLTREC recordings are stored and interpreted, in order to program them.
-
-FLTREC .FRC File Structure:
-- Header: An identification string (currently serves no purpose). Number of data points. Whether each data set (M, S, E, A) is present.
-- Data Point: Corresponding time since start, followed by movement and input information according to which data sets are enabled.
-
-FLTREC Playback System:
-- When playback is started, the start time (UnityEngine.Time.timeSinceLevelLoad) is recorded. The time is checked against the start time every FixedUpdate to get a relative time, which is then used to find the corresponding theorhetical floating-point index of the time array.
-- This index is used to calculate inputs at any given time.
-- Floating-point and Vector3 values are linearly interpolated (lerped) if the floating-point index falls between two integers.
-- Boolean values take the previous data point.
-- Note: The first data point (index 0) corresponds to the starting values.
-- Tip: To increase a value instantaneously, write them with zero or very small delays.
+Beginner's guide below main reference.
 
 ## Enumerations
 
@@ -67,3 +46,36 @@ FLTREC Playback System:
 `void Save(string filename)`
 - Export the script into a file readable by the Flight Recorder mod.
 - `filename`: File name.
+
+## Preparation
+
+1. Download and install [Microsoft Visual Studio 2019](https://visualstudio.microsoft.com/downloads/).
+2. Download and unzip [FltScr.zip](https://github.com/hpgbproductions/FltRec/blob/main/FltScr.zip)
+3. Open `FltScr.sln`.
+4. Open `NewRecording.cs`. You will only ever need to modify `NewRecordingData()`. Currently, an example script is included there.
+5. Build using Ctrl+B or the green arrow at the top. This will generate a FLTREC `EXAMPLE.FRC` file on your desktop.
+6. Copy the file to your FLTREC recordings folder at `\NACHSAVE\FLTREC\`.
+7. Load it in-game and watch your plane automatically activate some activation groups and take off.
+
+## Implementation
+
+It is important to know how FLTREC recordings are stored and interpreted, in order to program them.
+
+FLTREC .FRC File Structure:
+- Header: An identification string (currently serves no purpose). Number of data points. Whether each data set (M, S, E, A) is present.
+- Data Point: Corresponding time since start, followed by movement and input information according to which data sets are enabled.
+
+FLTREC Playback System:
+- When playback is started, the start time (UnityEngine.Time.timeSinceLevelLoad) is recorded. The time is checked against the start time every FixedUpdate to get a relative time, which is then used to find the corresponding theorhetical floating-point index of the time array.
+- This index is used to calculate inputs at any given time.
+- Floating-point and Vector3 values are linearly interpolated (lerped) if the floating-point index falls between two integers.
+- Boolean values take the previous data point.
+- Note: The first data point (index 0) corresponds to the starting values.
+- Tip: To increase a value instantaneously, write them with zero or very small NextFrame delays.
+
+## Program Checklist
+
+- `SelectDataSets` called at the beginning with values (not required, but a good practice)
+- `SetBufferSize` called at the beginning with a value equal to the number of `NextFrame` calls
+- `Save` called at the end with a valid filename - alphanumeric characters and underscores only
+- No functions or statements after `Save`
