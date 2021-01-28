@@ -73,7 +73,7 @@ FLTREC Playback System:
 - Floating-point and Vector3 values are linearly interpolated (lerped) if the floating-point index falls between two integers.
 - Boolean values take the previous data point.
 - Note: The first data point (index 0) corresponds to the starting values.
-- Note: The first data point (index 0) for movement is in world space. The rest of movement data points are relative to the first point.
+- Note: The first data point (index 0) for movement is in world space. The remaining movement data points are relative to the first point. As such, it will be very difficult to write movement data using FLTSCR.
 - Tip: To increase a value instantaneously, write them with zero or very small NextFrame delays.
 
 ## Program Checklist
