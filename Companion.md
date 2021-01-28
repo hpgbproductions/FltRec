@@ -41,7 +41,7 @@ Beginner's guide below main reference.
 
 `void NextFrame(float delay = 1f)`
 - Write the values defined before it to a data point, and advances to the next.
-- `delay`: Time to the next data point.
+- `delay`: Time to the next data point. The first `NextFrame` call should have this set to 0.
 
 `void Save(string filename)`
 - Export the script into a file readable by the Flight Recorder mod.
