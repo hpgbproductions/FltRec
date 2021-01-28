@@ -80,4 +80,5 @@ FLTREC Playback System:
 - `SelectDataSets` called at the beginning with values (not required, but a good practice)
 - `SetBufferSize` called at the beginning with a value equal to the number of `NextFrame` calls
 - `Save` called at the end with a valid filename - alphanumeric characters and underscores only
+- No `NextFrame` calls before `SetBufferSize`
 - No functions or statements after `Save`
