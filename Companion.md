@@ -59,7 +59,7 @@ Beginner's guide below main reference.
 6. Copy the file to your FLTREC recordings folder at `\NACHSAVE\FLTREC\`.
 7. Load it in-game and watch your plane automatically activate some activation groups and take off.
 
-Tip: If you run `FltRSet_PlayDebug true`, you can see the floating data point during playback.
+Tip: If you run `FltRSet_PlayDebug true`, you can see the current data point and timer during playback.
 
 ## Implementation
 
