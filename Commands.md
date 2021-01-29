@@ -35,6 +35,9 @@ Recording settings will determine which data sets are recorded. During playback,
 [Actions] `FltRec_TogglePreview (void)`
 - Toggle visibility of the preview. The preview must be generated first. Note that leaving the sandbox will automatically hide the preview.
 
+[Check Settings] `FltRSet_Check (void)`
+- Prints the current settings in the dev console.
+
 [Recording Settings] `FltRSet_RecordControls (bool m, bool s, bool e, bool a)`
 - Choose whether certain data sets are recorded.
 - `m`: Movement. Default true.
