@@ -68,6 +68,7 @@ It is important to know how FLTREC recordings are stored and interpreted, in ord
 FLTREC .FRC File Structure:
 - Header: An identification string (currently serves no purpose). Number of data points. Whether each data set (M, S, E, A) is present.
 - Data Point: Corresponding time since start, followed by movement and input information according to which data sets are enabled.
+- All I/O is handled using C# BinaryReader and BinaryWriter classes.
 
 FLTREC Playback System:
 - When playback is started, the start time (UnityEngine.Time.timeSinceLevelLoad) is recorded. The time is checked against the start time every FixedUpdate to get a relative time, which is then used to find the corresponding theorhetical floating-point index of the time array.
