@@ -102,6 +102,7 @@ public class FltRec : MonoBehaviour
         ServiceProvider.Instance.DevConsole.RegisterCommand<char>("FltRec_ClearSet", FltRec_ClearSet);
 
         // Settings commands
+        ServiceProvider.Instance.DevConsole.RegisterCommand("FltRSet_Check", FltRSet_Check);
         ServiceProvider.Instance.DevConsole.RegisterCommand<int, int>("FltRSet_RecordQuality", FltRSet_RecordQuality);
         ServiceProvider.Instance.DevConsole.RegisterCommand<bool, bool, bool, bool>("FltRSet_RecordControls", FltRSet_RecordControls);
         ServiceProvider.Instance.DevConsole.RegisterCommand<bool, bool>("FltRSet_PlaySpace", FltRSet_PlaySpace);
@@ -197,50 +198,62 @@ public class FltRec : MonoBehaviour
 
             // BEGIN record frame data
 
-            if (RecDataCount == 0)
+            if (RecordMovement)
             {
-                // Getting information specific to first data point
-                // and preparing for other data points
+                if (RecDataCount == 0)
+                {
+                    // Getting information specific to first data point
+                    // and preparing for other data points
 
-                StartTime = Time.timeSinceLevelLoad;
-                TimeSinceStart[0] = 0f;
+                    StartTime = Time.timeSinceLevelLoad;
+                    TimeSinceStart[0] = 0f;
 
-                PlanePositions[0] = ServiceProvider.Instance.PlayerAircraft.MainCockpitPosition + ServiceProvider.Instance.GameWorld.FloatingOriginOffset;
-                PlaneRotations[0] = ServiceProvider.Instance.PlayerAircraft.MainCockpitRotation;
+                    PlanePositions[0] = ServiceProvider.Instance.PlayerAircraft.MainCockpitPosition + ServiceProvider.Instance.GameWorld.FloatingOriginOffset;
+                    PlaneRotations[0] = ServiceProvider.Instance.PlayerAircraft.MainCockpitRotation;
 
-                StartPoint.position = ServiceProvider.Instance.PlayerAircraft.MainCockpitPosition - ServiceProvider.Instance.GameWorld.FloatingOriginOffset;
-                StartPoint.eulerAngles = ServiceProvider.Instance.PlayerAircraft.MainCockpitRotation;
+                    StartPoint.position = ServiceProvider.Instance.PlayerAircraft.MainCockpitPosition - ServiceProvider.Instance.GameWorld.FloatingOriginOffset;
+                    StartPoint.eulerAngles = ServiceProvider.Instance.PlayerAircraft.MainCockpitRotation;
 
-                StartPointCache = ServiceProvider.Instance.PlayerAircraft.MainCockpitPosition;
-                OffsetCache = ServiceProvider.Instance.GameWorld.FloatingOriginOffset;
+                    StartPointCache = ServiceProvider.Instance.PlayerAircraft.MainCockpitPosition;
+                    OffsetCache = ServiceProvider.Instance.GameWorld.FloatingOriginOffset;
+                }
+                else
+                {
+                    TimeSinceStart[RecDataCount] = Time.timeSinceLevelLoad - StartTime;
+
+                    StartPoint.position = StartPointCache - ServiceProvider.Instance.GameWorld.FloatingOriginOffset;
+
+                    PlayerPoint.position = ServiceProvider.Instance.PlayerAircraft.MainCockpitPosition - OffsetCache;
+                    PlayerPoint.eulerAngles = ServiceProvider.Instance.PlayerAircraft.MainCockpitRotation;
+
+                    PlanePositions[RecDataCount] = PlayerPoint.localPosition;
+                    PlaneRotations[RecDataCount] = PlayerPoint.localEulerAngles;
+                }
             }
-            else
+
+            if (RecordStandard)
             {
-                TimeSinceStart[RecDataCount] = Time.timeSinceLevelLoad - StartTime;
-
-                StartPoint.position = StartPointCache - ServiceProvider.Instance.GameWorld.FloatingOriginOffset;
-
-                PlayerPoint.position = ServiceProvider.Instance.PlayerAircraft.MainCockpitPosition - OffsetCache;
-                PlayerPoint.eulerAngles = ServiceProvider.Instance.PlayerAircraft.MainCockpitRotation;
-
-                PlanePositions[RecDataCount] = PlayerPoint.localPosition;
-                PlaneRotations[RecDataCount] = PlayerPoint.localEulerAngles;
+                PlanePitch[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Pitch;
+                PlaneRoll[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Roll;
+                PlaneYaw[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Yaw;
+                PlaneThrottle[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Throttle;
+                PlaneBrake[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Brake;
             }
-
-            PlanePitch[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Pitch;
-            PlaneRoll[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Roll;
-            PlaneYaw[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Yaw;
-            PlaneThrottle[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Throttle;
-            PlaneBrake[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Brake;
-            PlaneTrim[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Trim;
-            PlaneVTOL[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Vtol;
-            PlaneGearDown[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.LandingGearDown;
-            PlaneGuns[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.FireGuns;
-            PlaneWeapons[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.FireWeapons;
-            PlaneCountermeasures[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.LaunchCountermeasures;
-            for (int i = 0; i < 8; i++)
+            if (RecordExtra)
             {
-                PlaneAgs[RecDataCount, i] = ServiceProvider.Instance.PlayerAircraft.Controls.GetActivationGroupState(i + 1);
+                PlaneTrim[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Trim;
+                PlaneVTOL[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.Vtol;
+                PlaneGearDown[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.LandingGearDown;
+            }
+            if (RecordAdvanced)
+            {
+                PlaneGuns[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.FireGuns;
+                PlaneWeapons[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.FireWeapons;
+                PlaneCountermeasures[RecDataCount] = ServiceProvider.Instance.PlayerAircraft.Controls.LaunchCountermeasures;
+                for (int i = 0; i < 8; i++)
+                {
+                    PlaneAgs[RecDataCount, i] = ServiceProvider.Instance.PlayerAircraft.Controls.GetActivationGroupState(i + 1);
+                }
             }
 
             // END record frame data
@@ -666,6 +679,18 @@ public class FltRec : MonoBehaviour
                     break;
                 }
         }
+    }
+
+    private void FltRSet_Check()
+    {
+        string header = string.Format("Settings Check ({0})", DateTime.Now);
+        string recq = string.Format("[Recording Quality] RecordingMaxSize: {0} | RecordingInterval: {1}", RecordingMaxSize, RecordingInterval);
+        string recc = string.Format("[Recorded Data Sets] RecordMovement: {0} | RecordStandard: {1} | RecordExtra: {2} | RecordAdvanced: {3}", RecordMovement, RecordStandard, RecordExtra, RecordAdvanced);
+        string plas = string.Format("[Playback Space] PositionRelative: {0} | RotationRelative: {1}", PositionRelative, RotationRelative);
+        string plad = string.Format("[Playback Debug] PlayerDebug: {0}", PlayerDebug);
+        string prec = string.Format("[Preview Color] ColorR: {0} | ColorG: {1} | ColorB: {2} | ColorA: {3}", ColorR, ColorG, ColorB, ColorA);
+        string preq = string.Format("[Preview Quality] LineWidth: {0} | LineTimeInterval: {1} | LineCornerVertices: {2}", LineWidth, LineTimeInterval, LineCornerVertices);
+        Debug.LogFormat("{0}\n\n{1}\n\n{2}\n\n{3}\n\n{4}\n\n{5}\n\n{6}", header, recq, recc, plas, plad, prec, preq);
     }
 
     private void FltRSet_RecordQuality(int size, int interval)
