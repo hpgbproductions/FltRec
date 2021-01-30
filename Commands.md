@@ -10,7 +10,7 @@ Recording settings will determine which data sets are recorded. During playback,
 
 The following information cannot be recorded:
 - Start location if Movement set is disabled
-- Switching of weapons or combat mode
+- Switching of weapons, targets, or combat mode
 
 ## Commands
 
