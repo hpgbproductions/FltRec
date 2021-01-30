@@ -8,6 +8,12 @@ This program splits the list of recorded information into four categories:
 - A (Advanced): Weapons and activation groups.
 Recording settings will determine which data sets are recorded. During playback, this information is checked. A recorded data set will be locked from player input during playback.
 
+The following information cannot be recorded:
+- Start location if Movement set is disabled
+- Switching of weapons or combat mode
+
+## Commands
+
 [Actions] `FltRec_ClearSet (char set)`
 - Delete a data set from the currently loaded data.
 - `set`: Character corresponding to the data set. May be M, S, E, or A.
