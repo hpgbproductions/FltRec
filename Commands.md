@@ -6,6 +6,7 @@ This program splits the list of recorded information into four categories:
 - S (Standard): Basic control axes, Throttle, and Brake.
 - E (Extra): Trim and VTOL sliders, and landing gear.
 - A (Advanced): Weapons and activation groups.
+
 Recording settings will determine which data sets are recorded. During playback, this information is checked. A recorded data set will be locked from player input during playback.
 
 The following information cannot be recorded:
