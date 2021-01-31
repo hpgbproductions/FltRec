@@ -7,7 +7,7 @@ This program splits the list of recorded information into four categories:
 - E (Extra): Trim and VTOL sliders, and landing gear.
 - A (Advanced): Weapons and activation groups.
 
-Recording settings will determine which data sets are recorded. During playback, this information is checked. A recorded data set will be locked from player input during playback.
+Recording settings will determine which data sets are recorded. This setting is saved in each recording. During playback, this information is checked. A recorded data set will be locked from player input during playback.
 
 The following information cannot be recorded:
 - Start values of disabled data sets
