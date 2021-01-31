@@ -9,7 +9,7 @@ This program splits the list of recorded information into four categories:
 Recording settings will determine which data sets are recorded. During playback, this information is checked. A recorded data set will be locked from player input during playback.
 
 The following information cannot be recorded:
-- Start location if Movement set is disabled
+- Start values of disabled data sets
 - Switching of weapons, targets, or combat mode
 
 ## Commands
